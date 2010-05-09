@@ -31,21 +31,23 @@
 
 (defn-
   #^{:doc "A table view containing a list of objects."}
-  list-table [items objs]
+  list-table [f items objs]
   (html
    [:table
     [:tr
      (map (fn [item]
             (html
              [:th item]))
-          items)]
+          items)
+     [:th "actions"]]
     (map (fn [obj]
            (html
             [:tr
              (map (fn [item]
                     (html
                      [:td (item obj)]))
-                  items)]))
+                  items)
+            [:td (f obj)]]))
          objs)]))
 
 (defn
@@ -53,21 +55,11 @@
   projects-page [projects]
   (page "projects"
         (html
-         [:table
-          [:tr
-           [:th "name"]
-           [:th "version"]
-           [:th "actions"]]
-          (map (fn [project]
-                 (html
-                  [:tr
-                   [:td (:name project)]
-                   [:td (:version project)]
-                   [:td (link-to (str "/project/"
-                                      (:name project) "/"
-                                      (:version project))
-                                 "detail")]]))
-               projects)])))
+         (list-table
+          (fn [project]
+            (html (link-to (str "/project/" (:name project) "/" (:version project)) "detail")))
+          '(:name :version)
+          projects))))
 
 (defn
   #^{:doc "Page containing a detailed view of a project."}
@@ -81,5 +73,9 @@
   questionnaire-templates-page [questionnaire-templates]
   (page "questionnaire templates"
         (html
-         (list-table '(:name :shortname :version)
-                     questionnaire-templates))))
+         (list-table
+          (fn [qt]
+            (html (link-to (str "/questionnaire/" (:shortname qt) "/" (:version qt)) "detail")))
+          '(:name :shortname :version)
+          questionnaire-templates))))
+
