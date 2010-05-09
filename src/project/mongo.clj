@@ -6,13 +6,18 @@
 
 (defn
   #^{:doc "Save an object to the database."}
-  save [project]
-  (insert! :project project))
+  save [obj]
+  (insert! (:type obj) obj))
 
 (defn
   #^{:doc "Find all projects"}
   list-all-projects []
   (fetch :project))
+
+(defn
+  #^{:doc "Find all questionnaire-templates"}
+  list-all-questionnaire-templates []
+  (fetch :questionnaire-template))
 
 (defn
   #^{:doc "Find a project by name and version."}

@@ -29,6 +29,25 @@
              [:td (key obj)]]))
          items)]))
 
+(defn-
+  #^{:doc "A table view containing a list of objects."}
+  list-table [items objs]
+  (html
+   [:table
+    [:tr
+     (map (fn [item]
+            (html
+             [:th item]))
+          items)]
+    (map (fn [obj]
+           (html
+            [:tr
+             (map (fn [item]
+                    (html
+                     [:td (item obj)]))
+                  items)]))
+         objs)]))
+
 (defn
   #^{:doc "Page containing a list of all projects."}
   projects-page [projects]
@@ -55,4 +74,12 @@
   project-detail-page [project]
   (page (short-description project)
         (html
-         (key-value-table [:name :version] project))))
+         (key-value-table [:name :version :customer :nickname] project))))
+
+(defn
+  #^{:doc "Page containing a list of all questionnaire-templates."}
+  questionnaire-templates-page [questionnaire-templates]
+  (page "questionnaire templates"
+        (html
+         (list-table '(:name :shortname :version)
+                     questionnaire-templates))))
