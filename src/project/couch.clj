@@ -25,9 +25,10 @@
                                       }"}))))
 
 (defn
-  #^{:doc "Load a specific project by the id."}
+  #^{:doc "Load a specific project by the name and the version."}
   project-by-name-and-version [name version]
   (:value
    (:rows
     (view-temp-get *db* *project*
-                   {:map "function(doc) {"}))))
+                   {:map
+                    (str "function(doc) { if (doc.type == 'project' && ")}))))
