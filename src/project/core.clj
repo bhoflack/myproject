@@ -13,7 +13,9 @@
   (GET "/questionnaire" [] (questionnaire-templates-page (list-all-questionnaire-templates)))
   (GET "/questionnaire/:shortname/:version" [shortname version]
        (questionnaire-template-detail-page
-        (questionnaire-template-by-shortname-and-version shortname (Integer/parseInt version)))))
+        (questionnaire-template-by-shortname-and-version
+         shortname
+         (Integer/parseInt version)))))
 
 (defn start []
   (run-jetty project-routes {:port 8080}))

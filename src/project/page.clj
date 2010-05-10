@@ -83,5 +83,8 @@
   #^{:doc "Page containing a detailed view of a questionnaire-template"}
   questionnaire-template-detail-page [qt]
   (page (str (:name qt) " " (:version qt))
-        (key-value-table [:name :shortname :version] qt)))
+        (html 
+         (key-value-table [:name :shortname :version] qt)
+         (unordered-list (map (fn [q] (:question q))
+                              (:questions qt))))))
 
