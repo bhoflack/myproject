@@ -26,3 +26,11 @@
    :project
    :where {:name name
            :version version}))
+
+(defn
+  #^{:doc "Find a questionnaire template by shortname and version."}
+  questionnaire-template-by-shortname-and-version [shortname version]
+  (fetch-one
+   :questionnaire-template
+   :where {:shortname shortname
+           :version version}))
