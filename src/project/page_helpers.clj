@@ -4,11 +4,14 @@
 
 (defn
   #^{:doc "Standard page template."}
-  page [title body]
+  page [title body {:keys [js]}]
   (html
    (doctype :xhtml-strict)
    [:head
-    [:title title]]
+    [:title title]
+    (include-js "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
+                "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js")
+    (javascript-tag js)]
    [:body
     [:h1 title]
     [:hr]
@@ -48,3 +51,11 @@
                   items)
             [:td (f obj)]]))
          objs)]))
+
+(defn
+  #^{:doc "A sortable unordered list"}
+  sortable-unordered-list [items]
+  (html
+   [:ul {:id "sortable"}
+    (map #(html [:li {:class "ui-state-default"} %])
+         items)]))

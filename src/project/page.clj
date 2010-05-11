@@ -39,6 +39,12 @@
   (page (str (:name qt) " " (:version qt))
         (html 
          (key-value-table [:name :shortname :version] qt)
-         (unordered-list (map (fn [q] (:question q))
-                              (:questions qt))))))
+         (sortable-unordered-list (map (fn [q] (:question q))
+                                       (:questions qt))))
+        {:js "$(function() {
+                $('#sortable').sortable({
+                  placeholder: 'ui-state-highlight'
+                });
+                $('#sortable').disableSelection();
+              });"}))
 
