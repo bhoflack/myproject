@@ -4,7 +4,7 @@
 
 (defn
   #^{:doc "Standard page template."}
-  page [title body {:keys [js]}]
+  page [title body & [{js :js}]]
   (html
    (doctype :xhtml-strict)
    [:head
