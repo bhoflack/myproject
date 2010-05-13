@@ -10,7 +10,8 @@
    [:head
     [:title title]
     (include-js "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
-                "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js")
+                "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"
+                "/media/css/myproject.js")
     (javascript-tag js)]
    [:body
     [:h1 title]
@@ -52,10 +53,20 @@
             [:td (f obj)]]))
          objs)]))
 
+(defn-
+  #^{:doc "Create an list of maps with a position and the item"
+     :test (fn []
+             (assert (= [{:position 0 :item "hello"}
+                         {:position 1 :item "world"}]
+                        (order-list ["hello" "world"]))))}
+  order-list [items]
+  (map (fn [i p] {:position p :item i}) items (iterate inc 0)))
+
 (defn
   #^{:doc "A sortable unordered list"}
   sortable-unordered-list [items]
   (html
    [:ul {:id "sortable"}
-    (map #(html [:li {:class "ui-state-default"} %])
-         items)]))
+    (map #(html
+           [:li {:id (str "items_" (:position %)) :class "ui-state-default"} (:item %)])
+         (order-list items))]))

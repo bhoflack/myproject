@@ -10,6 +10,11 @@
   (insert! (:type obj) obj))
 
 (defn
+  #^{:doc "Update an object to the database."}
+  update [old obj]
+  (update! (:type obj) old obj))
+
+(defn
   #^{:doc "Find all projects"}
   list-all-projects []
   (fetch :project))

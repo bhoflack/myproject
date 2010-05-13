@@ -11,7 +11,7 @@
         (html
          (list-table
           (fn [project]
-            (html (link-to (str "/project/" (:name project) "/" (:version project)) "detail")))
+            (html (link-to (str "/project/" (:name project) "/" (:version project) "/") "detail")))
           '(:name :version)
           projects))))
 
@@ -29,7 +29,7 @@
         (html
          (list-table
           (fn [qt]
-            (html (link-to (str "/questionnaire/" (:shortname qt) "/" (:version qt)) "detail")))
+            (html (link-to (str "/questionnaire/" (:shortname qt) "/" (:version qt) "/") "detail")))
           '(:name :shortname :version)
           questionnaire-templates))))
 
@@ -40,11 +40,5 @@
         (html 
          (key-value-table [:name :shortname :version] qt)
          (sortable-unordered-list (map (fn [q] (:question q))
-                                       (:questions qt))))
-        {:js "$(function() {
-                $('#sortable').sortable({
-                  placeholder: 'ui-state-highlight'
-                });
-                $('#sortable').disableSelection();
-              });"}))
+                                       (:questions qt))))))
 
